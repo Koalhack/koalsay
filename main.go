@@ -11,7 +11,7 @@ import (
 func replaceTabToSpace(lines []string) []string {
 	var newLines []string
 	for _, line := range lines {
-		line := strings.Replace(line, "\t", "  ", -1)
+		line = strings.Replace(line, "\t", "  ", -1)
 		newLines = append(newLines, line)
 	}
 
@@ -54,11 +54,11 @@ func buildBalloon(lines []string, maxWidth int) string {
 	} else {
 		s := fmt.Sprintf("%s %s %s", borders[0], lines[0], borders[1])
 		balloon = append(balloon, s)
-		for i := 1; i < count; i++ {
+		for i := 1; i < count-1; i++ {
 			s = fmt.Sprintf("%s %s %s", borders[4], lines[i], borders[4])
 			balloon = append(balloon, s)
 		}
-		s = fmt.Sprintf("%s %s %s", borders[2], lines[0], borders[3])
+		s = fmt.Sprintf("%s %s %s", borders[2], lines[count-1], borders[3])
 		balloon = append(balloon, s)
 
 	}
@@ -68,6 +68,14 @@ func buildBalloon(lines []string, maxWidth int) string {
 }
 
 func main() {
+
+	//INFO: ASCII Koala
+
+	const koala = `   \
+    \   ||
+    Ϲ(◕𐊶◕)Ͻ
+     (__ ⊃
+        ||`
 
 	//INFO: Get data from Stdin
 
@@ -92,4 +100,6 @@ func main() {
 	balloon := buildBalloon(messages, maxWidth)
 
 	fmt.Println(balloon)
+	fmt.Println(koala)
+	fmt.Println()
 }
