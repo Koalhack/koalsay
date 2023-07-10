@@ -8,7 +8,17 @@ import (
 	"strings"
 )
 
-func CalculateMaxWidth(lines []string) int {
+func replaceTabToSpace(lines []string) []string {
+	var newLines []string
+	for _, line := range lines {
+		line := strings.Replace(line, "\t", "  ", -1)
+		newLines = append(newLines, line)
+	}
+
+	return newLines
+}
+
+func calculateMaxWidth(lines []string) int {
 	var width = 0
 	for _, line := range lines {
 		var lineLength = len(line)
@@ -58,6 +68,9 @@ func buildBalloon(lines []string, maxWidth int) string {
 }
 
 func main() {
+
+	//INFO: Get data from Stdin
+
 	reader := bufio.NewReader(os.Stdin)
 
 	var lines []string
@@ -71,9 +84,12 @@ func main() {
 		lines = append(lines, string(line))
 	}
 
-	maxWidth := CalculateMaxWidth(lines)
+	//INFO: Display final Result
+
+	lines = replaceTabToSpace(lines)
+	maxWidth := calculateMaxWidth(lines)
 	messages := normalizelineWidth(lines, maxWidth)
 	balloon := buildBalloon(messages, maxWidth)
 
-	fmt.Print(balloon)
+	fmt.Println(balloon)
 }
